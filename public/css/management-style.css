@@ -1,0 +1,120 @@
+/* common style */
+* {
+    box-sizing: border-box;
+}
+body {
+    font-size: 20px;
+}
+table {
+    width: 650px;
+    margin-bottom: 40px;
+}
+form {
+    flex-direction: column;
+    align-items: center;
+}
+tr {
+    height: 80px;
+}
+td,
+th {
+    text-align: center;
+    vertical-align: middle;
+}
+input {
+    font-size: 22px;
+    width: 100%;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+.ttl {
+    font-size: 30px;
+    margin: 40px 0px;
+}
+.main-container {
+    padding-bottom: 50px;
+}
+.flex {
+    display: flex;
+}
+.container {
+    flex-direction: column;
+    align-items: center;
+}
+.search-container{
+    border: 2px solid #000;
+}
+.gender-input {
+    width: 40%;
+    display: none;
+}
+.gender-label {
+    width: 50%;
+    flex-direction: row;
+}
+.gender-text {
+    align-items: center;
+}
+.gender-text:before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border: 2px solid rgb(80, 80, 80);
+    border-radius: 50%;
+    padding: 15px;
+    background-clip: content-box;
+}
+input[type="radio"]:checked + .gender-text:before {
+    background-color: #000;
+}
+.btn {
+    width: 150px;
+    padding: 5px 0px;
+    color: #fff;
+    background-color: #000;
+}
+.reset-btn{
+    margin:10px 0px;
+}
+.delete-btn{
+    width: 75px;
+}
+.result-table {
+    font-size: 16px;
+    width:900px;
+}
+.result-table tr:first-of-type {
+    border-bottom: 1px solid #000;
+}
+.opinion-text {
+    width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* for paginate */
+
+svg.w-5.h-5 {
+    width: 30px;
+    height: 30px;
+}
+.pagination-container{
+    width: 100%;
+}
+nav > div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.pagination-links > span{
+    display: flex;
+    align-items: center;
+}
+.pagination-links > span *{
+    padding:0px 1px;
+}

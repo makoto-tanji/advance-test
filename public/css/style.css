@@ -1,0 +1,116 @@
+/* common style */
+* {
+    box-sizing: border-box;
+}
+form {
+    flex-direction: column;
+    align-items: center;
+}
+tr {
+    height: 60px;
+}
+td,
+th {
+    vertical-align: middle;
+}
+input {
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+textarea {
+    resize: none;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+input, textarea{
+font-size: 100%;
+font-family: inherit;
+}
+.ttl {
+    font-size: 30px;
+    margin: 40px 0px;
+}
+.main-container{
+    padding-bottom: 50px;
+}
+.required {
+    color: red;
+}
+.flex {
+    display: flex;
+}
+.container {
+    flex-direction: column;
+    align-items: center;
+}
+.error-container{
+    display: none;
+}
+.gender-input {
+    width: 40%;
+    display: none;
+}
+.gender-label {
+    width: 50%;
+    flex-direction: row;
+}
+.gender-text {
+    align-items: center;
+}
+.gender-text:before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border: 2px solid rgb(80, 80, 80);
+    border-radius: 50%;
+    padding: 15px;
+    background-clip: content-box;
+}
+input[type="radio"]:checked + .gender-text:before {
+    background-color: #000;
+}
+.postcode-container {
+    flex-direction: row;
+}
+.postcode-input {
+    margin-left: 5px;
+}
+.error-text{
+    color:red;
+}
+.btn{
+    width: 150px;
+    padding: 5px 0px;
+    color: #fff;
+    background-color: #000;
+}
+
+/* responsive design PC*/
+
+body {
+    font-size: 24px;
+}
+input,
+textarea {
+    font-size: 22px;
+    width: 100%;
+}
+table {
+    width: 650px;
+    margin-bottom: 40px;
+}
+th {
+    width: 200px;
+}
+td {
+    padding-left: 15px;
+}
+.name-container {
+    flex-direction: row;
+    justify-content: space-between;
+}
+.name-container * {
+    width: 45%;
+}
