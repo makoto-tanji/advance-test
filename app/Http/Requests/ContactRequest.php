@@ -38,6 +38,8 @@ class ContactRequest extends FormRequest
     public function messages()
     {
         return [
+            'lastName.required' => '名字を入力してください',
+            'firstName.required' => '名前を入力してください',
             'postcode.between' => '123-4567という形で入力してください。',
             'postcode.regex' => '123-4567という形で入力してください。',
             'opinion.required' => '120字以内で入力してください。',

@@ -32,6 +32,7 @@ class Contact extends Model
     }
 
     //管理システムの性別の検索条件処理。コントローラから呼ばれる
+    //ラジオボタンが、「男性」の時は1、「女性」の時は2、「全て」の時は0が$genderに入っている
     public static function getGender($gender)
     {
         if($gender === "1"){

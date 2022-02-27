@@ -14,14 +14,10 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
 Route::get('/', [ContactController::class, 'index']);
 Route::get('/confirmation', [ContactController::class, 'confirm']);
 Route::post('/confirmation', [ContactController::class, 'store']);
 Route::get('/thanks', [ContactController::class, 'thanks']);
-// Route::get('/management', [ContactController::class, 'management']);
-// Route::post('/management', [ContactController::class, 'search']);
 Route::get('/management', [ContactController::class, 'search']);
 Route::post('/delete', [ContactController::class, 'delete']);

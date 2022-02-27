@@ -1,66 +1,100 @@
-##
+## 概要
 
-<!-- <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Advanceテスト課題
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravelを使った問い合わせフォーム
 
-## About Laravel
+## 要件
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 確認を押す前に入力した段階でエラーを出すようにしてください。
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* Livewireを使用
+* コンポーネント「ContactFrom」を作成
+  * 「ContactForm.php」内にバリデーションルールを記述
+  * 郵便番号を入力した際は、自動住所取得処理を待つ
+  * 「contact-form.blade.php」内にフォームを全て記述
+  * 「contact.blade.php」にレンダリング
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 入力がない場合は確認ボタンを押してもエラーメッセージを出力
 
-## Learning Laravel
+inputのrequired属性で対応。
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 性別は男性をデフォルトでチェック
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+input内に「checked」を指定。
 
-## Laravel Sponsors
+### メールアドレスはメールアドレス形式でないとエラーを出力
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+「ContactForm.php」内のバリデーションルールを
 
-### Premium Partners
+```
+'email' => 'required | email',
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+と指定。
 
-## Contributing
+また、inputのtype属性をemailとすることで、送信時にもエラー出力。
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 郵便番号はハイフンありの半角で、8文字以外の場合はエラー出力
 
-## Code of Conduct
+* ContactForm.php」内のバリデーションルールで正規表現を使用。
+* 「12345678」、「1234567-」、「123456-7」という形でもエラー出力
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+ 'postcode' => 'required | between:8,8 | regex:/[0-9]{3}+-[0-9]{4}/' ,
+```
 
-## Security Vulnerabilities
+### 郵便番号が全角の場合は自動で半角に変換
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+作成したフォームリクエスト「ContactRequest.php」内のprepareForValidation()でデータを加工。
 
-## License
+mb_convert_kanaでオプションに「a」を指定。全角英数字を半角に変換。
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->
+### 郵便番号で検索した結果が住所の項目に自動で反映
+
+* YubinBango.jsを使用
+  * 「contact-form.php.blade」3行目でライブラリを読み込む
+  * 4行目。のフォームのクラスに「h-adr」を指定
+  * 94行目。class属性に “p-country-name” をセットした非表示要素を配置
+  * 102行目。郵便番号入力フォームのclass属性に “p-postal-code” をセット
+  * 123行目。住所入力フォームのclass属性に “p-region”（都道府県）、”p-locality”(市区町村)、”p-street-address”(町域)、”p-extended-address”(それ以降の住所) をセット
+
+### ご意見は入力文字数が120文字以内になるように制限
+
+inputのmaxlength属性を120に指定。
+
+### 修正するリンクを押すとお問い合わせページに戻る。その際入力データを保持する
+
+session()を使用。
+
+内容確認ページ「confirmation.php」に遷移した際、セッションに値を保存。
+
+「ContactForm.php」にて、セッションの値をマウント。
+
+## その他
+
+### Contact.php
+
+* showGender()
+  * 管理システムのビュー「management.blad.php」116行目で呼ばれる
+  * 1、２で保存されている性別情報を「男性」「女性」に変換して出力する
+
+* getGender()
+  * 管理システムの検索時のコントローラー「ContactController.php」内のsearch()アクションで呼ばれる
+  * 管理システムのラジオボタンにて
+    * 「全て」をチェックすると0が渡され、配列[1, 2]が返される
+    * 「男性」をチェックすると1が渡され、配列[ 1 ]が返される
+    * 「女性」をチェックすると2が渡され、配列[ 2 ]が返される
+  * search()アクション内84行目で返された配列を条件にデータベースを検索
+
+  ```
+  $query->whereIn('gender', Contact::getGender($request->gender) );
+  ```
+
+* getDate($from, $by)
+  * 管理システムの検索時のコントローラー「ContactController.php」内のsearch()アクションで呼ばれる
+  * 管理システムの日にち検索の入力「$from」「$by」が渡される
+    * 「$from」～「$by」の時、「$fromの日付」と「$byの日付」を返す
+    * 「$from」～「未入力」の時、「$fromの日付」と「本日の日付」を返す
+    * 「未入力」～「$by」の時、「データベースの最初のデータのcreated_at」と「$byの日付」を返す
+    * 「未入力」～「未入力」の時、「データベースの最初のデータのcreated_at」と「本日の日付」を返す

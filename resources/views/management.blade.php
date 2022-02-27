@@ -25,6 +25,7 @@
                   type="text"
                   name="fullname"
                   placeholder="山田 太郎"
+                  value="{{ old('fullname') }}"
                 >
               </td>
             </tr>
